@@ -9,6 +9,14 @@ body {
     background-color: DAF7DC;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
+.buttons{
+    display: flex
+}
+
 .center-container {
     position: relative;
 

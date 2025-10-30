@@ -19,6 +19,127 @@
 
     <div class="center-container">
 
+        <table>
+            <tr>
+                <th></th>
+                <th>ED</th>
+                <th>EE</th>
+            </tr>
+
+            <tr>
+                <td>
+                    <h3>S.C.C</h3>
+                </td>
+                <td><button class="hidden" onclick="">Mostrar</button></td>
+                <td><button class="hidden" onclick="">Mostrar</button></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h3>S.C.I</h3>
+                </td>
+                <td><button class="hidden" onclick="">Mostrar</button></td>
+                <td><button class="hidden" onclick="">Mostrar</button></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h3>S.B</h3>
+                </td>
+                <td><button class="hidden" onclick="">Mostrar</button></td>
+                <td><button class="hidden" onclick="">Mostrar</button></td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>Nº de ejercicio</th>
+                <th>Descripción del ejercicio</th>
+                <th>PDO</th>
+                <th>MySQLi</th>
+            </tr>
+
+            <tr>
+                <td><h3>1</h3></td>
+                <td>
+                    <h3>Conexión a la base de datos con la cuenta usuario y tratamiento de errores</h3>
+                </td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+            </tr>
+            
+            <tr>
+                <td><h3>2</h3></td>
+                <td>
+                    <h3>Mostrar el contenido de la tabla Departamento y el número de registros</h3>
+                </td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+            </tr>
+            
+            <tr>
+                <td><h3>3</h3></td>
+                <td>
+                    <h3>Formulario para añadir un departamento a la tabla Departamento con validación de entrada y control de errores</h3>
+                </td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+            </tr>
+            
+            <tr>
+                <td><h3>4</h3></td>
+                <td>
+                    <h3>Formulario de búsqueda de departamentos por descripción</h3>
+                </td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+            </tr>
+            
+            <tr>
+                <td><h3>5</h3></td>
+                <td>
+                    <h3>Pagina web que añade tres registros a nuestra tabla Departamento utilizando tres instrucciones insert y una transacción, de tal forma que se añadan los tres registros o no se añada ninguno</h3>
+                </td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+            </tr>
+            
+            <tr>
+                <td><h3>6</h3></td>
+                <td>
+                    <h3>Pagina web que cargue registros en la tabla Departamento desde un array departamentosnuevos utilizando una consulta preparada</h3>
+                </td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+            </tr>
+            
+            <tr>
+                <td><h3>7</h3></td>
+                <td>
+                    <h3>Página web que toma datos de un fichero xml y los añade a la tabla Departamento de nuestra base de datos</h3>
+                </td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+            </tr>
+            
+            <tr>
+                <td><h3>8</h3></td>
+                <td>
+                    <h3>Página web que toma datos de la tabla Departamento y guarda en un fichero departamento.xml</h3>
+                </td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+            </tr>
+            
+            <tr>
+                <td><h3>9</h3></td>
+                <td>
+                    <h3>Aplicación resumen MtoDeDepartamentosTema4</h3>
+                </td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+            </tr>
+        </table>
     </div>
 
     <div class="footer">
