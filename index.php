@@ -28,25 +28,25 @@
 
             <tr>
                 <td>
-                    <h3>S.C.C</h3>
+                    <h3>Script de creacion de la base de datos</h3>
                 </td>
-                <td><button class="hidden" onclick="">Mostrar</button></td>
+                <td><button class="active" onclick="window.location.href = './mostrarcodigo/muestraCreacionSQl.php'">Mostrar</button></td>
                 <td><button class="hidden" onclick="">Mostrar</button></td>
             </tr>
 
             <tr>
                 <td>
-                    <h3>S.C.I</h3>
+                    <h3>Script de carga inicial de la base de datos</h3>
                 </td>
-                <td><button class="hidden" onclick="">Mostrar</button></td>
+                <td><button class="active" onclick="window.location.href = './mostrarcodigo/muestraCargaSQl.php'">Mostrar</button></td>
                 <td><button class="hidden" onclick="">Mostrar</button></td>
             </tr>
 
             <tr>
                 <td>
-                    <h3>S.B</h3>
+                    <h3>Script de borrado de la base de datos</h3>
                 </td>
-                <td><button class="hidden" onclick="">Mostrar</button></td>
+                <td><button class="active" onclick="window.location.href = './mostrarcodigo/muestraBorraSQl.php'">Mostrar</button></td>
                 <td><button class="hidden" onclick="">Mostrar</button></td>
             </tr>
         </table>
@@ -64,7 +64,7 @@
                 <td>
                     <h3>Conexión a la base de datos con la cuenta usuario y tratamiento de errores</h3>
                 </td>
-                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><di><button class="active" onclick="window.location.href = './codigoPHP/Ejercicio01PDO.php'">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
                 <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
             </tr>
             
