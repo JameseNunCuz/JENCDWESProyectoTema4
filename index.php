@@ -64,8 +64,8 @@
                 <td>
                     <h3>Conexión a la base de datos con la cuenta usuario y tratamiento de errores</h3>
                 </td>
-                <td><di><button class="active" onclick="window.location.href = './codigoPHP/Ejercicio01PDO.php'">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
-                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><div><button class="active" onclick="window.location.href = './codigoPHP/ejercicio01PDO.php'">Ejecutar</button><button class="active" onclick="window.location.href = './mostrarcodigo/muestraEjercicio01PDO.php'">Mostrar</button></div></td>
+                <td><div class="buttons"><button class="active" onclick="window.location.href = './codigoPHP/ejercicio01SQLi.php'">Ejecutar</button><button class="active" onclick="window.location.href = './mostrarcodigo/muestraEjercicio01SQLI.php'">Mostrar</button></div></td>
             </tr>
             
             <tr>
