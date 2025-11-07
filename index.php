@@ -82,7 +82,7 @@
                 <td>
                     <h3>Formulario para añadir un departamento a la tabla Departamento con validación de entrada y control de errores</h3>
                 </td>
-                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><button class="active" onclick="window.location.href = './codigoPHP/ejercicio03PDO.php'">Ejecutar</button><button class="active" onclick="window.location.href = './mostrarcodigo/muestraEjercicio03PDO.php'">Mostrar</button></div></td>
                 <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
             </tr>
             
