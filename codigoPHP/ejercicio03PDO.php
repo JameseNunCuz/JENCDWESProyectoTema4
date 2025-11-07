@@ -88,7 +88,7 @@
         ?>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
             <label for="CodDepartamento">Codigo de departamento</label>
-            <input type="text" id="CodDepartamento" name="CodDepartamento" placeholder="COD" required>
+            <input type="text" id="CodDepartamento" name="CodDepartamento" placeholder="COD">
             <br>
 
             <label for="DescDepartamento">Descripcion</label>
