@@ -20,33 +20,56 @@
     <?php /** 
       *@author James Edward
       *@since 06/11/2025
-      *@version 06/11/2025
+      *@version 07/11/2025
       */
+    //Preparacion de los datos para la conexion a la base de datos
+    define("DSN", "mysql:host=10.199.9.174;dbname=DBJENCDWESProyectoTema4");
+    define("USERNAME", "adminsql");
+    define("PASSWORD", "password");
 
     $mostrarFormulario = true;
-    $errores = [];
 
     //---------------Validar formulario---------------
     if (isset($_REQUEST["submit"])) {
+        require_once "../core/231018libreriaValidacion.php";
+        $errores = [];
 
+        $validacion = new validacionFormularios();
+        array_push($errores, $validacion->comprobarAlfabetico($_REQUEST["CodDepartamento"], 3, 1, 1));
+        array_push($errores, $validacion->comprobarAlfanumerico($_REQUEST["DescDepartamento"], 255, 1, 0));
+        array_push($errores, $validacion->validarFecha($_REQUEST["FechaCreacionDepartamento"]));
+        array_push($errores, $validacion->comprobarFloat($_REQUEST["VolumenDeNegocio"]));
+        array_push($errores, $validacion->validarFecha($_REQUEST["FechaBajaDepartamento"]));
+
+        //Comprobar si hay algun valor en el array de errores que sea distinto de null o cadena vacia, es decir si hay errores en este
+        if (count(array_filter($errores, fn($error) => !is_null($error) && $error !== '')) === 0) {
+            $mostrarFormulario = false;
+        } else {
+            //Mostrar errores
+            foreach ($errores as $error) {
+                if (!is_null($error) && $error !== '') {
+                    echo "<p style='color:red;'>$error</p><br>";
+                }
+            }
+        }
     }
 
     //---------------Escribir en la base de datos---------------
-    if(empty($errores)){
-        //Preparacion de los datos para la conexion a la base de datos
-        define("DSN", "mysql:host=10.199.9.174;dbname=DBJENCDWESProyectoTema4");
-        define("USERNAME", "adminsql");
-        define("PASSWORD", "password");
-
+    if (!$mostrarFormulario) {
         //Conexion a la base de datos
         try {
             $pdo = new PDO(DSN, USERNAME, PASSWORD);
 
-            //Escribir datos
+            //Escribir datos uando prepared statements
             try {
+                $sql = $pdo->prepare("INSERT INTO Departamento (CodDepartamento, DescDepartamento, FechaCreacionDepartamento, VolumenDeNegocio, FechaBajaDepartamento) VALUES (?,?,?,?,?)");
+                if ($sql->execute([$_REQUEST["CodDepartamento"], $_REQUEST["DescDepartamento"], $_REQUEST["FechaCreacionDepartamento"], $_REQUEST["VolumenDeNegocio"], $_REQUEST["FechaBajaDepartamento"]])) {
+                    echo "<h2>Departamento insertado correctamente</h2>";
+                } else {
+                    echo "<h2>Insercion fallida</h2>";
+                }
 
-
-            //Escritura fallida
+                //Escritura fallida
             } catch (PDOException $exceptionPDO) {
                 echo "<h2>Error en la escritura</h2>";
                 echo "<p>" . $exceptionPDO->getMessage() . "</p>";
