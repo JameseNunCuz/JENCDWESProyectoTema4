@@ -35,26 +35,26 @@
         //Consulta de la tabla departamento
         try {
             //Crear y ejecutar consulta
-            $consulta = $pdo->query("SELECT DescDepartamento, FechaCreacionDepartamento, VolumenDeNegocio, FechaBajaDepartamento FROM DBJENCDWESProyectoTema4.Departamento");
+            $consulta = $pdo->query("SELECT CodDepartamento, DescDepartamento, FechaCreacionDepartamento, VolumenDeNegocio, FechaBajaDepartamento FROM DBJENCDWESProyectoTema4.Departamento");
             $resultadoConsulta = $consulta->fetchAll();
 
             //Salida de la informacion en forma de tabla
-            echo "<table><tr></tr><th>DescDepartamento</th><th>FechaCreacionDepartamento</th><th>VolumenDeNegocio</th><th>FechaBajaDepartamento</th></tr>";
+            echo "<table><tr></tr><th>CodDepartamento</th><th>DescDepartamento</th><th>FechaCreacionDepartamento</th><th>VolumenDeNegocio</th><th>FechaBajaDepartamento</th></tr>";
             foreach ($resultadoConsulta as $resultado) {
-                echo "<tr><td>".$resultado['DescDepartamento'] . "</td><td>" . $resultado['FechaCreacionDepartamento'] . "</td><td>" . $resultado['VolumenDeNegocio'] . "</td><td>" . $resultado['FechaBajaDepartamento'] . "</td></tr>";
+                echo "<tr><td>" . $resultado['CodDepartamento'] . "</td><td>" . $resultado['DescDepartamento'] . "</td><td>" . $resultado['FechaCreacionDepartamento'] . "</td><td>" . $resultado['VolumenDeNegocio'] . "</td><td>" . $resultado['FechaBajaDepartamento'] . "</td></tr>";
             }
             echo "</table>";
-        //consulta fallida
-        }catch(PDOException $exceptionPDO) {
+            //consulta fallida
+        } catch (PDOException $exceptionPDO) {
             echo "<h2>Error en la consulta</h2>";
-        echo "<p>" . $exceptionPDO->getMessage() . "</p>";
+            echo "<p>" . $exceptionPDO->getMessage() . "</p>";
         }
-    //Conexion fallida
+        //Conexion fallida
     } catch (PDOException $exceptionPDO) {
         echo "<h2>Error al conectar con la base de datos</h2>";
         echo "<p>" . $exceptionPDO->getMessage() . "</p>";
-    }finally {
-        unset( $pdo );
+    } finally {
+        unset($pdo);
     }
     ?>
 
