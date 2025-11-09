@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muestra Ejercicio 01 MySQLi</title>
+    <title>Muestra Ejercicio 02 MySQLi</title>
     <link rel="stylesheet" href="../webroot/css/style.css">
 </head>
 
@@ -18,7 +18,7 @@
     </div>
 
     <?php
-        highlight_file("../codigoPHP/ejercicio01SQLi.php");
+        highlight_file("../codigoPHP/ejercicio02SQLi.php");
     ?>
 
     <div class="footer">

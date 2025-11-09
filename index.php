@@ -74,7 +74,7 @@
                     <h3>Mostrar el contenido de la tabla Departamento y el número de registros</h3>
                 </td>
                 <td><button class="active" onclick="window.location.href = './codigoPHP/ejercicio02PDO.php'">Ejecutar</button><button class="active" onclick="window.location.href = './mostrarcodigo/muestraEjercicio02PDO.php'">Mostrar</button></div></td>
-                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><div class="buttons"><button class="active" onclick="window.location.href = './codigoPHP/ejercicio02SQLi.php'">Ejecutar</button><button class="active" onclick="window.location.href = './mostrarcodigo/muestraEjercicio02SQLI.php'">Mostrar</button></div></td>
             </tr>
             
             <tr>

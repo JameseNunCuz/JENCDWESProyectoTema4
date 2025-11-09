@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 01</title>
+    <title>Ejercicio 01 MySQLi</title>
     <link rel="stylesheet" href="../webroot/css/style.css">
 </head>
 
