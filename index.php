@@ -91,7 +91,7 @@
                 <td>
                     <h3>Formulario de búsqueda de departamentos por descripción</h3>
                 </td>
-                <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
+                <td><button class="active" onclick="window.location.href = './codigoPHP/ejercicio04PDO.php'">Ejecutar</button><button class="active" onclick="window.location.href = './mostrarcodigo/muestraEjercicio04PDO.php'">Mostrar</button></div></td>
                 <td><div class="buttons"><button class="hidden" onclick="">Ejecutar</button><button class="hidden" onclick="">Mostrar</button></div></td>
             </tr>
             

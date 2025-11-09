@@ -33,7 +33,7 @@
     <?php /** 
       *@author James Edward
       *@since 06/11/2025
-      *@version 07/11/2025
+      *@version 09/11/2025
       */
     //Preparacion de los datos para la conexion a la base de datos
     //define("DSN", "mysql:host=10.199.9.174;dbname=DBJENCDWESProyectoTema4");
