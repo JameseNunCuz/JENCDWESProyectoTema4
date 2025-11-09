@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 03</title>
     <link rel="stylesheet" href="../webroot/css/style.css">
+    <style>
+        .required {
+            background-color: lightyellow;
+        }
+
+        .locked {
+            background-color: lightgray;
+        }
+
+        .error{
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -63,8 +76,9 @@
 
             //Escribir datos uando prepared statements
             try {
+                $fecha = str_replace('T', ' ', $_POST['FechaCreacionDepartamento']) . ':00';
                 $sql = $pdo->prepare("INSERT INTO Departamento (CodDepartamento, DescDepartamento, FechaCreacionDepartamento, VolumenDeNegocio, FechaBajaDepartamento) VALUES (?,?,?,?,?)");
-                if ($sql->execute([$_REQUEST["CodDepartamento"], $_REQUEST["DescDepartamento"], $_REQUEST["FechaCreacionDepartamento"], $_REQUEST["VolumenDeNegocio"], $_REQUEST["FechaBajaDepartamento"]])) {
+                if ($sql->execute([$_REQUEST["CodDepartamento"], $_REQUEST["DescDepartamento"], $fecha, $_REQUEST["VolumenDeNegocio"], null])) {
                     echo "<h2>Departamento insertado correctamente</h2>";
                 } else {
                     echo "<h2>Insercion fallida</h2>";
@@ -72,8 +86,13 @@
 
                 //Escritura fallida
             } catch (PDOException $exceptionPDO) {
-                echo "<h2>Error en la escritura</h2>";
-                echo "<p>" . $exceptionPDO->getMessage() . "</p>";
+                if ($exceptionPDO->getCode() === "23000") {
+                    echo "<p class='error'>Codigo de derpartamento repetido</p>";
+                    $mostrarFormulario = true;
+                } else {
+                    echo "<h2>Error en la escritura</h2>";
+                    echo "<p>" . $exceptionPDO->getMessage() . "</p>";
+                }
             }
             //Conexion fallida
         } catch (PDOException $exceptionPDO) {
@@ -89,23 +108,25 @@
         ?>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
             <label for="CodDepartamento">Codigo de departamento</label>
-            <input type="text" id="CodDepartamento" name="CodDepartamento" placeholder="COD">
+            <input class="required" type="text" id="CodDepartamento" name="CodDepartamento" placeholder="COD" value="<?php echo isset($_REQUEST["CodDepartamento"]) ? $_REQUEST["CodDepartamento"] : '';?>">
             <br>
 
             <label for="DescDepartamento">Descripcion</label>
-            <input type="text" id="DescDepartamento" name="DescDepartamento" placeholder="Descripcion">
-            <br>
-
-            <label for="FechaCreacionDepartamento">Fecha de Creacion</label>
-            <input type="date" id="FechaCreacionDepartamento" name="FechaCreacionDepartamento">
+            <input type="text" id="DescDepartamento" name="DescDepartamento" placeholder="Descripcion"  value="<?php echo isset($_REQUEST["DescDepartamento"]) ? $_REQUEST["DescDepartamento"] : '';?>">
             <br>
 
             <label for="VolumenDeNegocio">Volumen De Negocio</label>
-            <input type="text" id="VolumenDeNegocio" name="VolumenDeNegocio" placeholder="1000">
+            <input type="text" id="VolumenDeNegocio" name="VolumenDeNegocio" placeholder="1000" value="<?php echo isset($_REQUEST["VolumenDeNegocio"]) ? $_REQUEST["VolumenDeNegocio"] : '';?>">
+            <label>€</label>
+            <br>
+
+            <label for="FechaCreacionDepartamento">Fecha de Creacion</label>
+            <input class="locked" type="datetime-local" id="FechaCreacionDepartamento" name="FechaCreacionDepartamento"
+                value="<?php echo date('Y-m-d\TH:i'); ?>" readonly>
             <br>
 
             <label for="FechaBajaDepartamento">Fecha de Baja</label>
-            <input type="date" id="FechaBajaDepartamento" name="FechaBajaDepartamento">
+            <input class="locked" type="date" id="FechaBajaDepartamento" name="FechaBajaDepartamento" readonly>
             <br>
 
             <button type="submit" name="submit">Enviar</button>
