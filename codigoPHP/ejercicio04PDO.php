@@ -7,7 +7,7 @@
     <title>Ejercicio 04</title>
     <link rel="stylesheet" href="../webroot/css/style.css">
     <style>
-        footer{
+        footer {
             position: fixed;
             bottom: 0;
             width: 100%;
@@ -42,7 +42,7 @@
             <input type="text" id="DescDepartamento" name="DescDepartamento" placeholder="Descripcion">
             <br>
 
-            <button type="submit" name="submit">Enviar</button>
+            <button type="submit" name="submit">Buscar</button>
         </form>
 
         <?php /** 
@@ -52,71 +52,71 @@
           */
 
         //Preparacion de los datos para la conexion a la base de datos
-        //define("DSN", "mysql:host=10.199.9.174;dbname=DBJENCDWESProyectoTema4");
-        define("DSN", "mysql:host=192.168.1.200;dbname=DBJENCDWESProyectoTema4");
+        define("DSN", "mysql:host=10.199.9.174;dbname=DBJENCDWESProyectoTema4");
+        //define("DSN", "mysql:host=192.168.1.200;dbname=DBJENCDWESProyectoTema4");
         define("USERNAME", "adminsql");
         define("PASSWORD", "password");
 
         $mostrarFormulario = true;
 
         //----------Hacer consulta----------
-        if (isset($_POST["submit"])) {
-            try {
-                //Crear conexion con la db
-                $pdo = new PDO(DSN, USERNAME, PASSWORD);
-                $resultadoConsulta = null;
-
-                //Preparar sql
-                $sql = "SELECT CodDepartamento, DescDepartamento, FechaCreacionDepartamento, VolumenDeNegocio, FechaBajaDepartamento FROM DBJENCDWESProyectoTema4.Departamento";
-
-                //Consulta si se ha introducido una descripcion
-                if (!empty($_POST["DescDepartamento"])) {
-                    $sql .= " WHERE DescDepartamento LIKE :descripcion;";
-                    try {
-                        $consulta = $pdo->prepare($sql);
-                        $consulta->bindValue(":descripcion", "%" . $_POST["DescDepartamento"] . "%", PDO::PARAM_STR);
-                        $consulta->execute();
-                        $resultadoConsulta = $consulta->fetchAll(PDO::FETCH_ASSOC);
-                    } catch (PDOException $exceptionPDO) {
-                        echo "<h2>Error en la consulta SQL</h2>";
-                        echo "<p>" . $exceptionPDO->getMessage() . "</p>";
-                    }
-
-                    //Consulta si no se ha introducido nada
-                } else {
-                    try {
-                        $resultadoConsulta = $pdo->query($sql);
-                    } catch (PDOException $exceptionPDO) {
-                        echo "<h2>Error en la consulta SQL</h2>";
-                        echo "<p>" . $exceptionPDO->getMessage() . "</p>";
-                    }
-                }
-
-                //----------Salida----------
         
-                //No se encontraron resultados
-                if (empty($resultadoConsulta)) {
-                    echo "<h2>No se han encontrado resultados</h2>";
+        try {
+            //Crear conexion con la db
+            $pdo = new PDO(DSN, USERNAME, PASSWORD);
+            $resultadoConsulta = null;
 
-                    //Se han encontrado resultados, se muestran en una tabla
-                } else {
-                    echo "<h2>Resultado de la consulta:</h2>";
-                    echo "<table><tr></tr><th>CodDepartamento</th><th>DescDepartamento</th><th>FechaCreacionDepartamento</th><th>VolumenDeNegocio</th><th>FechaBajaDepartamento</th></tr>";
-                    foreach ($resultadoConsulta as $resultado) {
-                        echo "<tr><td>" . $resultado['CodDepartamento'] . "</td><td>" . $resultado['DescDepartamento'] . "</td><td>" . $resultado['FechaCreacionDepartamento'] . "</td><td>" . $resultado['VolumenDeNegocio'] . "</td><td>" . $resultado['FechaBajaDepartamento'] . "</td></tr>";
-                    }
+            //Preparar sql
+            $sql = "SELECT CodDepartamento, DescDepartamento, FechaCreacionDepartamento, VolumenDeNegocio, FechaBajaDepartamento FROM DBJENCDWESProyectoTema4.Departamento";
+
+            //Consulta si se ha introducido una descripcion
+            if (!empty($_POST["DescDepartamento"])) {
+                $sql .= " WHERE DescDepartamento LIKE :descripcion;";
+                try {
+                    $consulta = $pdo->prepare($sql);
+                    $consulta->bindValue(":descripcion", "%" . $_POST["DescDepartamento"] . "%", PDO::PARAM_STR);
+                    $consulta->execute();
+                    $resultadoConsulta = $consulta->fetchAll(PDO::FETCH_ASSOC);
+                } catch (PDOException $exceptionPDO) {
+                    echo "<h2>Error en la consulta SQL</h2>";
+                    echo "<p>" . $exceptionPDO->getMessage() . "</p>";
                 }
 
-
-            } catch (PDOException $exceptionPDO) {
-                echo "<h2>Error al conectar con la base de datos</h2>";
-                echo "<p>" . $exceptionPDO->getMessage() . "</p>";
-            } finally {
-                unset($pdo);
+                //Consulta si no se ha introducido nada
+            } else {
+                try {
+                    $resultadoConsulta = $pdo->query($sql);
+                } catch (PDOException $exceptionPDO) {
+                    echo "<h2>Error en la consulta SQL</h2>";
+                    echo "<p>" . $exceptionPDO->getMessage() . "</p>";
+                }
             }
 
-            //----Mostrar formulario----
+            //----------Salida----------
+        
+            //No se encontraron resultados
+            if (empty($resultadoConsulta)) {
+                echo "<h2>No se han encontrado resultados</h2>";
+
+                //Se han encontrado resultados, se muestran en una tabla
+            } else {
+                echo "<h2>Resultado de la consulta:</h2>";
+                echo "<table><tr></tr><th>CodDepartamento</th><th>DescDepartamento</th><th>FechaCreacionDepartamento</th><th>VolumenDeNegocio</th><th>FechaBajaDepartamento</th></tr>";
+                foreach ($resultadoConsulta as $resultado) {
+                    echo "<tr><td>" . $resultado['CodDepartamento'] . "</td><td>" . $resultado['DescDepartamento'] . "</td><td>" . $resultado['FechaCreacionDepartamento'] . "</td><td>" . $resultado['VolumenDeNegocio'] . "</td><td>" . $resultado['FechaBajaDepartamento'] . "</td></tr>";
+                }
+            }
+
+
+        } catch (PDOException $exceptionPDO) {
+            echo "<h2>Error al conectar con la base de datos</h2>";
+            echo "<p>" . $exceptionPDO->getMessage() . "</p>";
+        } finally {
+            unset($pdo);
         }
+
+        //----Mostrar formulario----
+        
         ?>
 
     </main>

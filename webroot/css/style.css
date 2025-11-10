@@ -126,3 +126,15 @@ img {
 .hidden {
     visibility: hidden;
 }
+
+.locked {
+    background-color: lightgray;
+}
+
+.required {
+    background-color: lightyellow;
+}
+
+.error {
+    color: red;
+}

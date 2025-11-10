@@ -48,8 +48,8 @@
           *@version 09/11/2025
           */
         //Preparacion de los datos para la conexion a la base de datos
-        //define("DSN", "mysql:host=10.199.9.174;dbname=DBJENCDWESProyectoTema4");
-        define("DSN", "mysql:host=192.168.1.200;dbname=DBJENCDWESProyectoTema4");
+        define("DSN", "mysql:host=10.199.9.174;dbname=DBJENCDWESProyectoTema4");
+        //define("DSN", "mysql:host=192.168.1.200;dbname=DBJENCDWESProyectoTema4");
         define("USERNAME", "adminsql");
         define("PASSWORD", "password");
 

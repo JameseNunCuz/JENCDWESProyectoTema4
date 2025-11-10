@@ -28,7 +28,7 @@
     </header>
 
     <main>
-
+        
         <?php /** 
           *@author James Edward
           *@since 03/11/2025
@@ -36,8 +36,8 @@
           */
 
         //Preparacion de los datos para la conexion a la base de datos
-        //define("DSN", "mysql:host=10.199.9.174;dbname=DBJENCDWESProyectoTema4");
-        define("DSN", "mysql:host=192.168.1.200;dbname=DBJENCDWESProyectoTema4");
+        define("DSN", "mysql:host=10.199.9.174;dbname=DBJENCDWESProyectoTema4");
+        //define("DSN", "mysql:host=192.168.1.200;dbname=DBJENCDWESProyectoTema4");
         define("USERNAME", "adminsql");
         define("PASSWORD", "password");
 
@@ -51,7 +51,7 @@
             $atributos = ["AUTOCOMMIT", "CASE", "CLIENT_VERSION", "CONNECTION_STATUS", "DRIVER_NAME", "ERRMODE", "ORACLE_NULLS", "PERSISTENT", "SERVER_INFO", "SERVER_VERSION"/*,"PREFETCH" => PDO::ATTR_PREFETCH,"TIMEOUT" => PDO::ATTR_TIMEOUT*/];
 
             foreach ($atributos as $atributo) {
-                echo $atributo . ": " . $pdo->getAttribute(constant("PDO::ATTR_$atributo")) . "<br>";
+                echo "<p>".$atributo . ": " . $pdo->getAttribute(constant("PDO::ATTR_$atributo")) . "</p><br>";
             }
 
         } catch (PDOException $exceptionPDO) {

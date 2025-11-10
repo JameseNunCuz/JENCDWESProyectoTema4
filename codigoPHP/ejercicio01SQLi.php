@@ -36,8 +36,8 @@
           */
 
         //Preparacion de los datos para la conexion a la base de datos
-        //define("HOST", "10.199.9.174");
-        define("HOST", "192.168.1.200");
+        define("HOST", "10.199.9.174");
+        //define("HOST", "192.168.1.200");
         define("USERNAME", "adminsql");
         define("PASSWORD", "password");
         define("DBNAME", "DBJENCDWESProyectoTema4");
