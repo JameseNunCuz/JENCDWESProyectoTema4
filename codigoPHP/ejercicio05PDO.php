@@ -35,93 +35,107 @@
           *@version 10/11/2025
           */
 
-        $mostrarFormulario = null;     //Variable que indica si hay nque mostrar o no el formulario
-        $errores = [];//Array para almacenar los mensajes de error
-        
-        //----------------Comprobación del formulario----------------
-        //Si se ha recibido el formulario valida las respuestas
+        //Preparacion de los datos para la conexion a la base de datos
+        define("DSN", "mysql:host=10.199.9.174;dbname=DBJENCDWESProyectoTema4");
+        //define("DSN", "mysql:host=192.168.1.200;dbname=DBJENCDWESProyectoTema4");
+        define("USERNAME", "adminsql");
+        define("PASSWORD", "password");
+
+        $mostrarFormulario = true;
+
+        //---------------Validacion de datos---------------
         if (isset($_REQUEST["submit"])) {
-            require "../core/231018libreriaValidacion.php"; //Requiere la libreria de validacion
-        
-            $validacion = new validacionFormularios(); //Objeto de la clase de validacion
-        
-            array_push($errores, $validacion->comprobarAlfabetico($_REQUEST["nombre"], 50, 3, 1)); //Comprobacion del nombre
-            array_push($errores, $validacion->validarTelefono($_REQUEST["numeroTelefono"], 1)); //Comprobacion del telefono
-            array_push($errores, $validacion->validarEmail($_REQUEST["email"])); //Comprobacion del email)
-        
-            //Las respuestas del formulario han sido validadas y estan bien, sacar los datos por pantalla, se indica que no muestre el formulario
-            if ($errores[0] == null && $errores[1] == null && $errores[2] == null) {
-                echo "Respuestas recibidas y correctas<br>";
-                echo "El nombre es: " . $_REQUEST["nombre"] . "<br>";
-                echo "El telefono es: " . $_REQUEST["numeroTelefono"] . "<br>";
-                echo "El email es: " . $_REQUEST["email"] . "<br>";
+            require_once "../core/231018libreriaValidacion.php";
+            $errores = [];
 
-                $mostrarFormulario = false; //Se indica que no saque el formulario
-        
-                //Los datos son invalidos, volver a mostrar el formulario y sacar errores por pantalla
+            $validacion = new validacionFormularios();
+            array_push($errores, $validacion->comprobarAlfabetico($_REQUEST["CodDepartamento"], 3, 1, 1));
+            array_push($errores, $validacion->comprobarAlfanumerico($_REQUEST["DescDepartamento"], 255, 1, 0));
+            array_push($errores, $validacion->validarFecha($_REQUEST["FechaCreacionDepartamento"]));
+            array_push($errores, $validacion->comprobarFloat($_REQUEST["VolumenDeNegocio"]));
+            array_push($errores, $validacion->validarFecha($_REQUEST["FechaBajaDepartamento"]));
+
+            //Comprobar si hay algun valor en el array de errores que sea distinto de null o cadena vacia, es decir si hay errores en este
+            if (count(array_filter($errores, fn($error) => !is_null($error) && $error !== '')) === 0) {
+                $mostrarFormulario = false;
             } else {
-                $mostrarFormulario = true; //Se indica que saque el formulario por pantalla
+                //Mostrar errores
+                foreach ($errores as $error) {
+                    if (!is_null($error) && $error !== '') {
+                        echo "<p class='error' >$error</p><br>";
+                    }
+                }
             }
-
-            //----------------Tratamiento de los datos----------------
-        } else {
-            $mostrarFormulario = true; //Se indica que saque el formulario por pantalla
         }
 
-        //----------------Sacar el formulario por pantalla----------------
+        //---------------Tratamiento de datos---------------
+        if (!$mostrarFormulario) {
+            //Conexion a la base de datos
+            try {
+                $pdo = new PDO(DSN, USERNAME, PASSWORD);
+
+                //Escribir datos uando prepared statements
+                try {
+                    $fecha = str_replace('T', ' ', $_POST['FechaCreacionDepartamento']) . ':00';
+                    $sql = $pdo->prepare("INSERT INTO Departamento (CodDepartamento, DescDepartamento, FechaCreacionDepartamento, VolumenDeNegocio, FechaBajaDepartamento) VALUES (?,?,?,?,?)");
+                    if ($sql->execute([$_REQUEST["CodDepartamento"], $_REQUEST["DescDepartamento"], $fecha, $_REQUEST["VolumenDeNegocio"], null])) {
+                        echo "<h2>Departamento insertado correctamente</h2>";
+                    } else {
+                        echo "<h2>Insercion fallida</h2>";
+                    }
+
+                    //Escritura fallida
+                } catch (PDOException $exceptionPDO) {
+                    if ($exceptionPDO->getCode() === "23000") {
+                        echo "<p class='error'>Codigo de derpartamento repetido</p>";
+                        $mostrarFormulario = true;
+                    } else {
+                        echo "<h2>Error en la escritura</h2>";
+                        echo "<p>" . $exceptionPDO->getMessage() . "</p>";
+                    }
+                }
+                //Conexion fallida
+            } catch (PDOException $exceptionPDO) {
+                echo "<h2>Error al conectar con la base de datos</h2>";
+                echo "<p>" . $exceptionPDO->getMessage() . "</p>";
+            } finally {
+                unset($pdo);
+            }
+        }
+
+        //---------------Mostrar formulario---------------
         if ($mostrarFormulario) {
             ?>
-
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                <label for="nombre">Nombre</label>
-                <?php
-                if (isset($errores[0]) && empty($errores[0])) {
-                    echo "<input type='text' id='nombre' name='nombre' placeholder='Nombre' value='" . $_REQUEST["nombre"] . "'>";
-                } else {
-                    echo "<input type='text' id='nombre' name='nombre' placeholder='Nombre'>";
-                }
+                <label for="CodDepartamento">Codigo de departamento</label>
+                <input class="required" type="text" id="CodDepartamento" name="CodDepartamento" placeholder="COD"
+                    value="<?php echo isset($_REQUEST["CodDepartamento"]) ? $_REQUEST["CodDepartamento"] : ''; ?>">
+                <br>
 
-                if (isset($errores[0])) {
-                    echo ("<label class='error'>" . $errores[0] . "</label>");
-                }
-                ?><br>
+                <label for="DescDepartamento">Descripcion</label>
+                <input type="text" id="DescDepartamento" name="DescDepartamento" placeholder="Descripcion"
+                    value="<?php echo isset($_REQUEST["DescDepartamento"]) ? $_REQUEST["DescDepartamento"] : ''; ?>">
+                <br>
 
-                <label for="telefono">Nº de telefono</label>
-                <?php
-                if (isset($errores[1]) && empty($errores[1])) {
-                    echo "<input type='tel' id='numeroTelefono' name='numeroTelefono' placeholder='123456789' value='" . $_REQUEST["numeroTelefono"] . "'>";
-                } else {
-                    echo "<input type='tel' id='numeroTelefono' name='numeroTelefono' placeholder='123456789'>";
-                }
+                <label for="VolumenDeNegocio">Volumen De Negocio</label>
+                <input type="text" id="VolumenDeNegocio" name="VolumenDeNegocio" placeholder="1000"
+                    value="<?php echo isset($_REQUEST["VolumenDeNegocio"]) ? $_REQUEST["VolumenDeNegocio"] : ''; ?>">
+                <label>€</label>
+                <br>
 
-                if (isset($errores[1])) {
-                    echo ("<label class='error'>" . $errores[1] . "</label>");
-                }
-                ?><br>
+                <label for="FechaCreacionDepartamento">Fecha de Creacion</label>
+                <input class="locked" type="datetime-local" id="FechaCreacionDepartamento" name="FechaCreacionDepartamento"
+                    value="<?php echo date('Y-m-d\TH:i'); ?>" readonly>
+                <br>
 
-                <label for="email">Correo electronico</label>
-                <?php
-                if (!empty($errores)) {
-                    if (is_null($errores[2])) {
-                        echo "<input type='text' id='email' name='email' placeholder='algo@algo.algo' value='" . $_REQUEST["email"] . "'>";
-                    } else {
-                        echo "<input type='text' id='email' name='email' placeholder='algo@algo.algo'>";
-                    }
-                } else {
-                    echo "<input type='text' id='email' name='email' placeholder='algo@algo.algo'>";
-                }
-
-                if (isset($errores[2])) {
-                    echo ("<label class='error'>" . $errores[2] . "</label>");
-                }
-                ?><br>
+                <label for="FechaBajaDepartamento">Fecha de Baja</label>
+                <input class="locked" type="date" id="FechaBajaDepartamento" name="FechaBajaDepartamento" readonly>
+                <br>
 
                 <button type="submit" name="submit">Enviar</button>
             </form>
-
-        <?php } ?>
-
-        ?>
+            <?php
+        } ?>
 
     </main>
 
