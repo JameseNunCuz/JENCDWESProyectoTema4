@@ -9,23 +9,40 @@
 </head>
 
 <body>
-    <div class="header">
-        <div class="title">
-            <h1>Desarrollo web en entorno servidor</h1>
-            <h2>Tema 4: Técnicas de acceso a datos en PHP</h2>
+    <header>
+        <table>
+            <tr>
+                <td>
+                    <h2>Desarrollo web en entorno servidor</h2>
+                </td>
+                <td>
+                    <h1>Tema 4: Técnicas de acceso a datos en PHP</h1>
+                </td>
+                <td>
+                    <button class="active" onclick="location.href = '../'">
+                        <h5>Volver</h5>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </header>
+
+    <main>
+
+        <?php
+        highlight_file("../codigoPHP/ejercicio04PDO.php");
+        ?>
+
+    </main>
+
+    <footer>
+        <h2>James Edward Nuñez Cuzcano</h2>
+        <div>
+            <button class="active" onclick="window.open('https://github.com/JameseNunCuz')"><img
+                    src="../webresources/github.png"></button>
+            <button class="active" onclick="location.href='../../../'"><img src="../webresources/home.png"></button>
         </div>
-        <button class="home active" onclick="location.href = '../'">Volver</button>
-    </div>
-
-    <?php
-    highlight_file("../codigoPHP/ejercicio04PDO.php");
-    ?>
-
-    <div class="footer">
-        <button onclick="location.href = '../../'">
-            <h3>James Edward Nuñez Cuzcano</h3>
-        </button>
-    </div>
+    </footer>
 </body>
 
 </html>
